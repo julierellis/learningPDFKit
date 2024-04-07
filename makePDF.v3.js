@@ -13,6 +13,9 @@ const padding = 10;
 
 const { colors } = require('./public/TypeColorCodes.js')
 
+const clientName = process.argv[2]
+const coreType = process.argv[3]
+
 
 // PDFKit uses a pen plotter kind of approach.
 //mark out header and footer
@@ -26,27 +29,27 @@ const { colors } = require('./public/TypeColorCodes.js')
 		width: fullW,
 		align:"center"
 		})
-		doc.text(`You can put an organization's logo over here.`	+
-			`It can be ${headerH} pts high and ${fullW/4} pts wide. ` +
-			`(Note: points are different from pixels)`, 3*(fullW/4),padding,{
-				width: fullW/4,
-				align: "left"
-			});
-		/*
-		doc.text(`Does this wrap? It DOES! Even at the right place relative to what came before`,{
-			width: fullW/3,
+	doc.text(`You can put an organization's logo over here.`	+
+		`It can be ${headerH} pts high and ${fullW/4} pts wide. ` +
+		`(Note: points are different from pixels)`, 3*(fullW/4),padding,{
+			width: fullW/4,
 			align: "left"
 		});
-		*/
-		doc.text(`version 0700F05Apr2024`,padding, headerH-padding, {
-			width: fullW/3,
-			align: "left",
-			baseline: "bottom"
-		});
+		/*
+	doc.text(`Does this wrap? It DOES! Even at the right place relative to what came before`,{
+		width: fullW/3,
+		align: "left"
+	});
+	*/
+	doc.text(`version 0700F05Apr2024`,padding, headerH-padding, {
+		width: fullW/3,
+		align: "left",
+		baseline: "bottom"
+	});
 	
-		doc.text("footer area" ,0 , fullH-footerH, {
-			width: fullW,
-			align:"center",
+	doc.text("footer area" ,0 , fullH-footerH, {
+		width: fullW,
+		align:"center",
 //			baseline: "bottom"
 
 		})
@@ -94,12 +97,10 @@ const { colors } = require('./public/TypeColorCodes.js')
 // This is too fiddly, and changing the headerH will impact the spacing.  Leave for now, but come back.
 
 //Add the client's name, with the right color, at an appropriate fontSize
-const clientType = process.argv[3]; // need to test for valid input
+// const clientType = process.argv[3]; // need to test for valid input
 		
-const clientCode = colors[clientType-1].hexCode;
- //doc.fillColor(clientCode);
-
-const clientName = process.argv[2];
+const clientCode = colors[coreType-1].hexCode;
+// doc.fillColor(clientCode);
 
 doc.font('./fonts/Shantell_Sans/static/ShantellSans-Bold.ttf')
 let nameFontSize = 18;
@@ -108,24 +109,25 @@ while (nameFontSize < 49){
 	if (doc.widthOfString(clientName) > fullW/3 ) break;
 	nameFontSize++
 }
-console.log(nameFontSize)
+// console.log(nameFontSize)
 	 
-const ellipseXrad = doc.widthOfString(clientName)/2;
+const ellipseXrad = doc.widthOfString(clientName)/2+ 2*padding;
+const ellipseYrad = (headerH-padding)/2;
 
-doc.ellipse(fullW/2, (headerH-padding), ellipseXrad+2*padding, (headerH-padding)/2)
+doc.ellipse(fullW/2, (headerH-padding), ellipseXrad, ellipseYrad)
 	.fill(clientCode)
     .stroke()
 doc.fill(`#ffffff`)
-doc.text(`${process.argv[2]}`,padding , (headerH-padding),{ 
+doc.text(clientName,padding , (headerH-padding),{ 
 	width:(fullW-padding),
 	align: 'center',
 	baseline: 'middle',
 })
 // add the first image
-doc.image(`./images/Type_${clientType}.cropped.png`, padding, headerH+padding,{
+doc.image(`./images/Type_${coreType}.cropped.png`, padding, headerH+padding,{
 		width: fullW/2
 });
-doc.image(`./images/Type_${clientType} Finish.cropped.png`, 0.45*fullW, headerH+padding,{
+doc.image(`./images/Type_${coreType} Finish.cropped.png`, 0.45*fullW, headerH+padding,{
 	width: 0.55*fullW,
 	height: fullH-headerH-footerH
 });
