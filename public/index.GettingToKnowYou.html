@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Getting to know you</h1>
+
+<form method="post" id="signup">	
+	<div class="field">
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" placeholder="clientName" />
+		<small></small>
+	</div>
+    <fieldset>
+      <legend> Enneagram Type </legend>
+      <p> Core Enneagram Type <br>
+      <input type="radio" id="Type1" name="coreType" value="1">
+        <label for="Type1">1</label>
+      <input type="radio" id="Type2" name="coreType" value="2">
+        <label for="Type2">2</label>
+      <input type="radio" id="Type3" name="coreType" value="3">
+        <label for="Type3">3</label>
+      <input type="radio" id="Type4" name="coreType" value="4">
+        <label for="Type4">4</label>
+      <input type="radio" id="Type5" name="coreType" value="5">
+        <label for="Type5">5</label>
+      <input type="radio" id="Type6" name="coreType" value="6">
+        <label for="Type6">6</label>
+      <input type="radio" id="Type7" name="coreType" value="7">
+        <label for="Type7">7</label>
+      <input type="radio" id="Type8" name="coreType" value="8">
+        <label for="Type8">8</label>
+      <input type="radio" id="Type9" name="coreType" value="9">
+        <label for="Type9">9</label>
+      </p>
+	  
+      <p> Enneagram Secondary Type <br>
+      <input type="radio" id="social" name="subType" value="social">
+        <label for="social">social</label>
+      <input type="radio" id="oneOnOne" name="subType" value="oneOnOne">
+        <label for="oneOnOne">one on one</label>
+      <input type="radio" id="self" name="subType" value="self">
+        <label for="self">self preservation</label>  
+      </p>
+	  
+	<!-- 
+	<div class="field">
+		<label for="email">Email:</label>
+		<input type="text" id="email" name="email" placeholder="Enter your email address" />
+		<small></small>
+	</div>
+	-->
+	<button type="submit">Send</button>
+</form>
+
+
+</body>
+</html>
