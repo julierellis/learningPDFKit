@@ -41,8 +41,6 @@ app.post('/', (req, res)=>{
 	//
 
 	doc.end(); // this closes the doc, ends the stream, AND closes the response
-
-//	res.end();
 });
 
 

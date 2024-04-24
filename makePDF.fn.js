@@ -1,6 +1,3 @@
-//  const	fs = require('fs');
-//	const path = require('node:path');
-
 // const PDFDocument = require('pdfkit');
 
 function  makePDF(clientName, coreType, subType, doc, res) {
@@ -24,14 +21,14 @@ function  makePDF(clientName, coreType, subType, doc, res) {
 		.fillAndStroke('#ffffed', '#eeeeee')
 		.stroke()
 	
-	// text always in black for now
-
-	doc.fill('#000000');
+// text always in black for now
+/*
+	doc.fill('#eeeeee');
 	doc.text(`header area`,0, 0, {
 		width: fullW,
 		align:"center"
 		});
-	
+*/	
 	doc.fill('#000000');
 	doc.text(`version 1200S21Apr2024`,padding, headerH-padding, {
 		width: fullW/3,
@@ -72,20 +69,19 @@ function  makePDF(clientName, coreType, subType, doc, res) {
 	}
 	console.log(nameFontSize)
 	
-
 	const ellipseXrad = doc.widthOfString(clientName)/2+ 2*padding;
-	const ellipseYrad = (headerH-padding)/2;	 
-	doc.ellipse(fullW/2, (headerH-padding), ellipseXrad, ellipseYrad)
+	const ellipseYrad = (headerH-padding)/2;	 // should this vary with ellipseXrad?
+	doc.ellipse(fullW/2, headerH/2, ellipseXrad, ellipseYrad) // what's the best vertical placement of this?
 	doc.fill(clientCode);  // it seems so weird that this goes AFTER the creation of the ellipse.  Is it like stroke()?
 		
 	doc.fill(`#ffffff`) // name is always white
-	doc.text(clientName,padding , (headerH-padding),{ 
+	doc.text(clientName,padding , (headerH/2),{ 
 		width:(fullW-padding),
 		align: 'center',
 		baseline: 'middle',
 	})
 
-// add the first image
+// add the first images, for the coreType
 doc.image(`./images/Type_${coreType}.cropped.png`, padding, headerH+padding,{
 		width: fullW/2
 });
@@ -93,6 +89,11 @@ doc.image(`./images/Type_${coreType} Finish.cropped.png`, 0.45*fullW, headerH+pa
 	width: 0.55*fullW,
 	height: fullH-headerH-footerH
 });
+// add the second image, for the subType
+doc.image(`./images/cropped.Subtype ${coreType}_${subType}.png`, (fullW/2)+padding, headerH+padding,{
+	width: 0.23*fullW
+});
+
 
 }
 module.exports = {makePDF}
